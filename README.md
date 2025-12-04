@@ -1,9 +1,7 @@
 # RealEstateOptionsGym
-
 A Gymnasium-compatible reinforcement learning environment for real estate option trading with stochastic interest rates and property value dynamics.
 
 ## Overview
-
 RealEstateOptionsGym provides realistic simulation environments for training RL agents on lease-option and property derivative strategies. Unlike equity-focused RL frameworks, this library models the unique characteristics of real estate markets:
 
 - **Illiquidity and transaction costs** - Realistic bid-ask spreads and holding periods
@@ -12,7 +10,6 @@ RealEstateOptionsGym provides realistic simulation environments for training RL 
 - **Lease option mechanics** - Rent credits, option premiums, exercise windows
 
 ## Installation
-
 ```bash
 pip install realestate-options-gym
 ```
@@ -25,7 +22,6 @@ pip install -e .
 ```
 
 ## Quick Start
-
 ```python
 import gymnasium as gym
 import realestate_options_gym
@@ -52,7 +48,6 @@ for _ in range(1000):
 ```
 
 ## Environments
-
 | Environment | Description |
 |-------------|-------------|
 | `LeaseOption-v1` | Single property lease-option with exercise decision |
@@ -61,7 +56,6 @@ for _ in range(1000):
 | `REITTrading-v1` | REIT allocation with property-level simulation |
 
 ## Observation Space
-
 The default observation includes:
 
 | Feature | Shape | Description |
@@ -77,7 +71,6 @@ The default observation includes:
 ## Action Space
 
 ### LeaseOption-v1
-
 | Action | Description |
 |--------|-------------|
 | 0 | Hold - continue lease, pay rent |
@@ -86,13 +79,11 @@ The default observation includes:
 | 3 | Renegotiate - attempt to extend/modify terms |
 
 ### PropertyPortfolio-v1
-
 Continuous action space `Box(low=-1, high=1, shape=(n_properties,))` representing target allocation weights.
 
 ## Integration with RL Libraries
 
 ### Stable-Baselines3
-
 ```python
 from stable_baselines3 import PPO
 import gymnasium as gym
@@ -104,7 +95,6 @@ model.learn(total_timesteps=100_000)
 ```
 
 ### FinRL Integration
-
 ```python
 from finrl.agents.stablebaselines3 import DRLAgent
 from realestate_options_gym.wrappers import FinRLWrapper
@@ -118,7 +108,6 @@ trained_model = agent.train_model(model, total_timesteps=50_000)
 ## Interest Rate Models
 
 ### Hull-White (default)
-
 ```
 dr = (theta(t) - a*r) * dt + sigma * dW
 ```
@@ -126,7 +115,6 @@ dr = (theta(t) - a*r) * dt + sigma * dW
 Calibrated to initial term structure with configurable mean reversion `a` and volatility `sigma`.
 
 ### Vasicek
-
 ```
 dr = a * (b - r) * dt + sigma * dW
 ```
@@ -134,7 +122,6 @@ dr = a * (b - r) * dt + sigma * dW
 Constant parameters with closed-form bond pricing.
 
 ### CIR (Cox-Ingersoll-Ross)
-
 ```
 dr = a * (b - r) * dt + sigma * sqrt(r) * dW
 ```
@@ -142,7 +129,6 @@ dr = a * (b - r) * dt + sigma * sqrt(r) * dW
 Ensures positive rates with volatility proportional to rate level.
 
 ## Property Value Dynamics
-
 Property values follow a mean-reverting jump-diffusion process:
 
 ```
@@ -156,7 +142,6 @@ Where:
 - `dJ`: Poisson jump process for market shocks
 
 ## Data Sources
-
 The library includes adapters for real market data:
 
 ```python
@@ -172,7 +157,6 @@ curve = rates.get_treasury_curve()
 ```
 
 ## Contributing
-
 Contributions welcome. Priority areas:
 
 - [ ] Commercial real estate environments (office, retail, industrial)
@@ -184,11 +168,9 @@ Contributions welcome. Priority areas:
 See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 
 ## License
-
 MIT License. See [LICENSE](LICENSE) for details.
 
 ## Citation
-
 ```bibtex
 @software{realestate_options_gym,
   author = {Pennington, Brandon},
@@ -198,10 +180,7 @@ MIT License. See [LICENSE](LICENSE) for details.
 }
 ```
 
-## Academic References
-
-This implementation draws from:
-
+## References
 1. Titman, S. (1985). "Urban Land Prices Under Uncertainty." *American Economic Review*
 2. Williams, J.T. (1991). "Real Estate Development as an Option." *Journal of Real Estate Finance and Economics*
 3. Grenadier, S.R. (1996). "Leasing and Credit Risk." *Journal of Financial Economics*
